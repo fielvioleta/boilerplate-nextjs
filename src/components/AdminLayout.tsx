@@ -16,9 +16,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import { useRouter } from 'next/router';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 const drawerWidth = 240;
 
@@ -50,7 +51,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
 }));
-
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
 }
@@ -73,59 +73,79 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
     ],
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme }) => ({
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        boxSizing: 'border-box',
-        variants: [
-            {
-                props: ({ open }) => open,
-                style: {
-                    ...openedMixin(theme),
-                    '& .MuiDrawer-paper': openedMixin(theme),
-                },
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    variants: [
+        {
+            props: ({ open }) => open,
+            style: {
+                ...openedMixin(theme),
+                '& .MuiDrawer-paper': openedMixin(theme),
             },
-            {
-                props: ({ open }) => !open,
-                style: {
-                    ...closedMixin(theme),
-                    '& .MuiDrawer-paper': closedMixin(theme),
-                },
+        },
+        {
+            props: ({ open }) => !open,
+            style: {
+                ...closedMixin(theme),
+                '& .MuiDrawer-paper': closedMixin(theme),
             },
-        ],
-    }),
+        },
+    ],
+}),
 );
 
 const sideBarContent = [
     {
         label: 'Dashboard',
-        icon: <DashboardIcon />
+        icon: <DashboardIcon />,
+        path: '/'
+    },
+    {
+        label: 'Logs',
+        icon: <SummarizeIcon />,
+        path: '/logs'
+    },
+    {
+        label: 'Micro services',
+        icon: <MiscellaneousServicesIcon />,
+        path: '/micro-services'
     }
 ]
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children }: any) {
+    const router = useRouter();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState<any>(null);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+    React.useEffect(() => {
+        if (localStorage.getItem('open') === null) {
+            localStorage.setItem('open', 'false');
+        }
 
-    const handleDrawerClose = () => {
-        setOpen(false);
+        setOpen(localStorage.getItem('open') === 'true' ? true : false)
+    }, [])
+
+    const handleDrawer = () => {
+        localStorage.setItem('open', (!open).toString());
+        setOpen(!open);
+    }
+
+    const navigate = (url: string) => {
+        router.push(url);
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: open === null ? 'none' : 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={handleDrawer}
                         edge="start"
                         sx={[
                             {
@@ -143,7 +163,7 @@ export default function AdminLayout({ children }) {
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton onClick={handleDrawer}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
@@ -152,6 +172,7 @@ export default function AdminLayout({ children }) {
                     {sideBarContent.map((item, index) => (
                         <ListItem key={index} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
+                                onClick={() => { navigate(item.path) }}
                                 sx={{
                                     minHeight: 48,
                                     px: 2.5,
@@ -177,7 +198,7 @@ export default function AdminLayout({ children }) {
                 </List>
                 {/* <Divider /> */}
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }} className={open ? 'open' : 'close'}>
                 <DrawerHeader />
                 {children}
             </Box>

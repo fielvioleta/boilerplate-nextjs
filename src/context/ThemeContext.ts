@@ -18,5 +18,12 @@ export const theme = createTheme({
         divider: '#d8d8d8',
     },
     components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontSize: '14px',
+                },
+            },
+        },
     },
 })

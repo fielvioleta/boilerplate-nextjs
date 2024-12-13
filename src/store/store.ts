@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import { usersSlice } from './usersSlice'
+import { logsSlice } from './logsSlice'
+import { microServicesSlice } from './microServicesSlice'
 
 const makeStore = () =>
     configureStore({
         reducer: {
-            [usersSlice.name]: usersSlice.reducer,
+            [logsSlice.name]: logsSlice.reducer,
+            [microServicesSlice.name]: microServicesSlice.reducer,
         },
         devTools: true,
         middleware: (getDefaultMiddleware) =>

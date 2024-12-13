@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.4.0",
     "@toolpad/studio": "^0.10.0",
     "axios": "^1.7.8",
+    "dayjs": "^1.11.13",
     "next": "15.0.3",
     "next-redux-wrapper": "^8.1.0",
     "react": "^18.3.1",
