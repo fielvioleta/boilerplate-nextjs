@@ -88,8 +88,8 @@ export default function Home() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row: any) => (
-                                <TableRow key={row.Id}>
+                            {data.map((row: any, index: number) => (
+                                <TableRow key={index}>
                                     <StyledTableCell align={'center'}>{row.Id}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.Server}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.AppType}</StyledTableCell>
@@ -98,12 +98,16 @@ export default function Home() {
                                     <StyledTableCell align={'center'}>{row.Level}</StyledTableCell>
                                     <StyledTableCell width="300px">
                                         <Tooltip title={row.Message} placement="bottom-start">
-                                            {row.Message}
+                                            <>
+                                                {row.Message}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                     <StyledTableCell width={'300px'}>
                                         <Tooltip title={row.Exception} placement="left-end">
-                                            {row.Exception}
+                                            <>
+                                                {row.Exception}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                 </TableRow>

@@ -20,6 +20,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { useRouter } from 'next/router';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 
 const drawerWidth = 240;
 
@@ -101,7 +103,7 @@ const sideBarContent = [
     {
         label: 'Dashboard',
         icon: <DashboardIcon />,
-        path: '/'
+        path: '/dashboard'
     },
     {
         label: 'Logs',
@@ -112,7 +114,17 @@ const sideBarContent = [
         label: 'Micro services',
         icon: <MiscellaneousServicesIcon />,
         path: '/micro-services'
-    }
+    },
+    {
+        label: 'Users',
+        icon: <PeopleAltIcon />,
+        path: '/users'
+    },
+    {
+        label: 'Roles',
+        icon: <SettingsAccessibilityIcon />,
+        path: '/user-roles'
+    },
 ]
 
 export default function AdminLayout({ children }: any) {

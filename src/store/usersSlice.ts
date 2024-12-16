@@ -1,15 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import API from '@/api/api'
 
-// import API from '@/api/api'
-
-// const API_ENDPOINT = process.env.API_ENDPOINT
+const API_ENDPOINT = process.env.API_ENDPOINT
 
 interface stateInferface {
-    endOfPage: boolean
+    currentUser: object,
+    endOfPage: boolean,
+    status: 'idle' | 'pending' | 'searching' | 'success' | 'error';
 }
 
 const initialState: stateInferface = {
+    currentUser: {},
     endOfPage: false,
+    status: 'idle'
 }
 
 //
@@ -27,16 +30,38 @@ export const fetchUsers = createAsyncThunk(
     },
 )
 
+export const loginUser = createAsyncThunk(
+    'loginUser',
+    async (params: any, thunkAPI) => {
+        try {
+            const { data } = await API.post(`/api/users/login`, params)
+            return data
+        } catch (err: any) {
+            return thunkAPI.rejectWithValue({ error: err.response.data })
+        }
+    },
+)
+
 export const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
     },
-    // extraReducers(builder) {
-    //     builder
-    //         //
-    //     //
-    // },
+    extraReducers(builder) {
+        builder
+            .addCase(loginUser.pending, (state) => {
+                state.status = 'pending';
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                localStorage.setItem('token', action.payload.token)
+                state.status = 'success';
+            })
+            .addCase(loginUser.rejected, (state) => {
+                state.status = 'error';
+            })
+    },
+
+
 })
 
 export const selectAllUsers = (state: any) => state.users.users

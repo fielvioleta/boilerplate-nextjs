@@ -96,8 +96,8 @@ export default function Home() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row: any) => (
-                                <TableRow key={row.Id}>
+                            {data.map((row: any, index: number) => (
+                                <TableRow key={index}>
                                     <StyledTableCell align={'center'}>{row.fID}</StyledTableCell>
                                     {/* <StyledTableCell align={'center'}>{fullDateFormat(row.fCreateDate)}</StyledTableCell> */}
                                     <StyledTableCell align={'center'}>{row.fSource_ID}</StyledTableCell>
@@ -107,12 +107,16 @@ export default function Home() {
                                     <StyledTableCell align={'center'}>{fullDateFormat(row.fValid_ToDate)}</StyledTableCell> */}
                                     <StyledTableCell width="300px">
                                         <Tooltip title={row.fMicroservices_URL} placement="bottom-start">
-                                            {row.fMicroservices_URL}
+                                            <>
+                                                {row.fMicroservices_URL}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                     <StyledTableCell width="300px">
                                         <Tooltip title={row.fSource_API_URL} placement="bottom-start">
-                                            {row.fSource_API_URL}
+                                            <>
+                                                {row.fSource_API_URL}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                     {/* <StyledTableCell align={'center'}>{row.fTimeoutSession}</StyledTableCell> */}
