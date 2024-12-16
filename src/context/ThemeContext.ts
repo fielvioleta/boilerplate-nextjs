@@ -12,7 +12,7 @@ export const theme = createTheme({
             contrastText: '#ffffff',
         },
         secondary: {
-            main: '#bb0706',
+            main: '#78A1BB',
             contrastText: '#ffffff',
         },
         divider: '#d8d8d8',
@@ -21,9 +21,63 @@ export const theme = createTheme({
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    fontSize: '14px',
+                    fontSize: '18px !important',
+                    maxWidth: '600px',
+                    maxHeight: '600px',
+                    overflowY: 'auto',
+                    whiteSpace: 'pre-wrap',
+                    paddingRight: '8px',
+                    '& .MuiTooltip-tooltip': {
+                        fontSize: '18px !important',
+                    },
                 },
             },
         },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    height: '48px'
+                }
+            }
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiInputBase-root': {
+                        height: '48px',
+                    },
+                    '& .MuiInputBase-input': {
+                        padding: '12.5px !important',
+                        lineHeight: '1.5',
+                    },
+                    '& .MuiInputLabel-root': {
+                        top: '-4px',
+                    },
+                    '& .MuiInputLabel-shrink': {
+                        top: '0',
+                    },
+                },
+            },
+        },
+        MuiListItem: {
+            styleOverrides: {
+                root: {
+                    '&.sideNav': {
+                        display: 'block',
+                        '& .MuiListItemButton-root': {
+                            minHeight: 48,
+                            paddingLeft: '20px',
+                            paddingRight: '20px',
+                            '& .MuiListItemIcon-root': {
+                                minWidth: 0,
+                                justifyContent: 'center',
+                            }
+                        }
+                    },
+
+
+                }
+            }
+        }
     },
 })

@@ -1,5 +1,5 @@
 import AdminLayout from "@/components/AdminLayout";
-import { Box, Button, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField, Tooltip } from "@mui/material";
+import { Box, Button, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import Paper from '@mui/material/Paper';
@@ -82,16 +82,11 @@ export default function Home() {
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>ID</StyledTableCell>
-                                {/* <StyledTableCell>Created Date</StyledTableCell> */}
                                 <StyledTableCell>Source Id</StyledTableCell>
                                 <StyledTableCell>Source Name</StyledTableCell>
                                 <StyledTableCell>Version Number</StyledTableCell>
-                                {/* <StyledTableCell>From Date</StyledTableCell>
-                                <StyledTableCell>To Date</StyledTableCell> */}
                                 <StyledTableCell>Service URL</StyledTableCell>
                                 <StyledTableCell>Source URL</StyledTableCell>
-                                {/* <StyledTableCell>Timeout Session</StyledTableCell> */}
-                                {/* <StyledTableCell>Updating Time</StyledTableCell> */}
                                 <StyledTableCell>Deleted</StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -99,28 +94,19 @@ export default function Home() {
                             {data.map((row: any, index: number) => (
                                 <TableRow key={index}>
                                     <StyledTableCell align={'center'}>{row.fID}</StyledTableCell>
-                                    {/* <StyledTableCell align={'center'}>{fullDateFormat(row.fCreateDate)}</StyledTableCell> */}
                                     <StyledTableCell align={'center'}>{row.fSource_ID}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.fSourceNickname}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.fVersionNumber}</StyledTableCell>
-                                    {/* <StyledTableCell align={'center'}>{fullDateFormat(row.fValid_FromDate)}</StyledTableCell>
-                                    <StyledTableCell align={'center'}>{fullDateFormat(row.fValid_ToDate)}</StyledTableCell> */}
                                     <StyledTableCell width="300px">
-                                        <Tooltip title={row.fMicroservices_URL} placement="bottom-start">
-                                            <>
-                                                {row.fMicroservices_URL}
-                                            </>
+                                        <Tooltip title={<Typography>{row.fMicroservices_URL} </Typography>} placement="left-end">
+                                            <span>{row.fMicroservices_URL}</span>
                                         </Tooltip>
                                     </StyledTableCell>
                                     <StyledTableCell width="300px">
-                                        <Tooltip title={row.fSource_API_URL} placement="bottom-start">
-                                            <>
-                                                {row.fSource_API_URL}
-                                            </>
+                                        <Tooltip title={<Typography>{row.fSource_API_URL} </Typography>} placement="left-end">
+                                            <span>{row.fSource_API_URL}</span>
                                         </Tooltip>
                                     </StyledTableCell>
-                                    {/* <StyledTableCell align={'center'}>{row.fTimeoutSession}</StyledTableCell> */}
-                                    {/* <StyledTableCell align={'center'}>{row.fUpdatingTime}</StyledTableCell> */}
                                     <StyledTableCell align={'center'}>{row.fDel ? 'True' : 'False'}</StyledTableCell>
                                 </TableRow>
                             ))}

@@ -74,6 +74,7 @@ export default function Login() {
             password: data.get('password'),
         })).then((res: any) => {
             if (res.meta.requestStatus === 'fulfilled') {
+                localStorage.setItem('token', res.payload.token);
                 router.push('/dashboard');
             }
         })

@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
@@ -149,6 +150,11 @@ export default function AdminLayout({ children }: any) {
         router.push(url);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        router.push('/');
+    }
+
     return (
         <Box sx={{ display: open === null ? 'none' : 'flex' }}>
             <CssBaseline />
@@ -182,33 +188,33 @@ export default function AdminLayout({ children }: any) {
                 <Divider />
                 <List>
                     {sideBarContent.map((item, index) => (
-                        <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                        <ListItem key={index} disablePadding className="sideNav">
                             <ListItemButton
                                 onClick={() => { navigate(item.path) }}
-                                sx={{
-                                    minHeight: 48,
-                                    px: 2.5,
-                                    justifyContent: open ? 'initial' : 'center',
-                                }}>
+                                sx={{ justifyContent: open ? 'initial' : 'center' }}>
                                 <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        justifyContent: 'center',
-                                        mr: open ? 3 : 'auto',
-                                    }}>
+                                    sx={{ mr: open ? 3 : 'auto' }}>
                                     {item.icon}
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={item.label}
-                                    sx={{
-                                        opacity: open ? 1 : 0,
-                                    }}
+                                    sx={{ opacity: open ? 1 : 0 }}
                                 />
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    <ListItem disablePadding className={`sideNav !fixed !bottom-0 ${open ? '!w-60' : '!w-[65px]'}`}>
+                        <ListItemButton sx={{ justifyContent: open ? 'initial' : 'center' }} onClick={handleLogout}>
+                            <ListItemIcon sx={{ mr: open ? 3 : 'auto' }}>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={'Logout'}
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
-                {/* <Divider /> */}
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }} className={open ? 'open' : 'close'}>
                 <DrawerHeader />

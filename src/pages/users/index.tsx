@@ -1,5 +1,5 @@
 import AdminLayout from "@/components/AdminLayout";
-import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField, Tooltip, Typography } from "@mui/material";
+import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import Paper from '@mui/material/Paper';
@@ -64,6 +64,7 @@ export default function Home() {
         <AdminLayout>
             {data &&
                 <TableContainer component={Paper} >
+
                     <div style={{ padding: '16px' }}>
                         <TextField
                             label="Filter logs"
@@ -96,13 +97,17 @@ export default function Home() {
                                     <StyledTableCell align={'center'}>{fullDateFormat(row.Date)}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.Level}</StyledTableCell>
                                     <StyledTableCell width="300px">
-                                        <Tooltip title={<Typography>{row.Message} </Typography>} placement="left-end">
-                                            <span>{row.Message}</span>
+                                        <Tooltip title={row.Message} placement="bottom-start">
+                                            <>
+                                                {row.Message}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                     <StyledTableCell width={'300px'}>
-                                        <Tooltip title={<Typography>{row.Exception} </Typography>} placement="left-end">
-                                            <span>{row.Exception}</span>
+                                        <Tooltip title={row.Exception} placement="left-end">
+                                            <>
+                                                {row.Exception}
+                                            </>
                                         </Tooltip>
                                     </StyledTableCell>
                                 </TableRow>
