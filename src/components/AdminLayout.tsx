@@ -23,7 +23,6 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({

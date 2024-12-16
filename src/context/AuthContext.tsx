@@ -1,12 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { jwtDecode } from 'jwt-decode';
-import API from '@/api/api';
-
 interface AuthContextType {
     user: any;
-    login: (username: string, password: string) => Promise<void>;
-    logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,32 +21,13 @@ export const AuthProvider = ({ children }: any) => {
                 console.error('Failed to decode token', error);
                 localStorage.removeItem('token');
             }
+        } else {
+            router.push('/');
         }
     }, []);
 
-    const login = async (username: string, password: string) => {
-        try {
-            const response = await API.post('/login', { username, password });
-            const { token } = response.data;
-
-            localStorage.setItem('token', token);
-            const decoded = jwtDecode(token) as any;
-            setUser(decoded);
-
-            router.push('/dashboard');
-        } catch (error: any) {
-            console.error('Login failed:', error.response.data.message);
-        }
-    };
-
-    const logout = () => {
-        localStorage.removeItem('token');
-        setUser(null);
-        router.push('/login');
-    };
-
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user }}>
             {children}
         </AuthContext.Provider>
     );
