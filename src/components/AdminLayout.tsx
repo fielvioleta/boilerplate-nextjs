@@ -157,6 +157,7 @@ export default function AdminLayout({ children }: any) {
     return (
         <Box sx={{ display: open === null ? 'none' : 'flex' }}>
             <CssBaseline />
+
             <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
@@ -176,6 +177,10 @@ export default function AdminLayout({ children }: any) {
                     <Typography variant="h6" noWrap component="div">
                         TAS Logs and Definition
                     </Typography>
+                    {/* selection of environment */}
+                    {/* <Box>
+                        Test
+                    </Box> */}
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>

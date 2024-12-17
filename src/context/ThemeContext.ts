@@ -36,7 +36,12 @@ export const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    height: '48px'
+                    height: '48px',
+                    ':disabled': {
+                        opacity: 0.75,
+                        background: '#485879',
+                        color: '#FFFFFF'
+                    }
                 }
             }
         },
@@ -78,6 +83,18 @@ export const theme = createTheme({
 
                 }
             }
-        }
+        },
+        MuiSnackbar: {
+            styleOverrides: {
+                root: {
+
+                    '& .MuiPaper-root': {
+                        backgroundColor: '#485879',
+                        color: '#fff',
+                        height: '56px'
+                    }
+                },
+            },
+        },
     },
 })
