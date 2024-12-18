@@ -113,6 +113,11 @@ export default function Home() {
         setHasFilter(false)
         setPage(0)
         setSize(10)
+        setFilterState({
+            search: '',
+            from: null,
+            to: null
+        })
         fetchData()
     }
 
@@ -213,7 +218,7 @@ export default function Home() {
                         <TableBody>
                             {data.map((row: any, index: number) => (
                                 <TableRow key={index}>
-                                    <StyledTableCell align={'center'}>{row.Id}</StyledTableCell>
+                                    <StyledTableCell align={'center'}>{row.Id ? row.Id : row.fID}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.Server}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.AppType}</StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.Environment}</StyledTableCell>

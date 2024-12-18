@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import { logsSlice } from './logsSlice'
 import { microServicesSlice } from './microServicesSlice'
 import { snackbarSlice } from './snackbarSlice'
+import { environmentSlice } from './environmentSlice'
 
 const makeStore = () =>
     configureStore({
@@ -9,6 +10,7 @@ const makeStore = () =>
             [logsSlice.name]: logsSlice.reducer,
             [microServicesSlice.name]: microServicesSlice.reducer,
             [snackbarSlice.name]: snackbarSlice.reducer,
+            [environmentSlice.name]: environmentSlice.reducer,
         },
         devTools: true,
         middleware: (getDefaultMiddleware) =>

@@ -23,6 +23,9 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectEnvironment, setEnvironment } from '@/store/environmentSlice';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -132,12 +135,20 @@ export default function AdminLayout({ children }: any) {
     const theme = useTheme();
     const [open, setOpen] = React.useState<any>(null);
 
+    const dispatch = useDispatch<any>()
+    const environmentState: any = useSelector(selectEnvironment);
+
     React.useEffect(() => {
         if (localStorage.getItem('open') === null) {
             localStorage.setItem('open', 'false');
         }
 
+        if (localStorage.getItem('env') === null) {
+            localStorage.setItem('env', 'devp');
+        }
+
         setOpen(localStorage.getItem('open') === 'true' ? true : false)
+        dispatch(setEnvironment(localStorage.getItem('env')))
     }, [])
 
     const handleDrawer = () => {
@@ -153,6 +164,11 @@ export default function AdminLayout({ children }: any) {
         localStorage.removeItem('token');
         router.push('/');
     }
+
+    const handleChange = (event: any) => {
+        dispatch(setEnvironment(event.target.value))
+        router.reload()
+    };
 
     return (
         <Box sx={{ display: open === null ? 'none' : 'flex' }}>
@@ -174,13 +190,22 @@ export default function AdminLayout({ children }: any) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        TAS Logs and Definition
-                    </Typography>
-                    {/* selection of environment */}
-                    {/* <Box>
-                        Test
-                    </Box> */}
+
+                    <Box className="flex flex-1 justify-between items-center">
+                        <Typography variant="h6" noWrap component="div">
+                            TAS Logs and Definition
+                        </Typography>
+
+                        <Box className="w-40">
+                            <FormControl fullWidth>
+                                <Select value={environmentState} onChange={handleChange}
+                                    sx={{ backgroundColor: 'white', color: '#485879', height: '48px', display: 'flex', alignItems: 'center', '& .MuiSvgIcon-root': { color: '#485879' } }} >
+                                    <MenuItem value={'devap'} sx={{ color: '#485879' }}>DEVAP</MenuItem>
+                                    <MenuItem value={'deveu'} sx={{ color: '#485879' }}>DEVEU</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
