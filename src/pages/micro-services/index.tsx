@@ -29,7 +29,7 @@ export default function Home() {
             }
         };
         fetchData();
-    }, [page, size]);
+    }, [page, size, dispatch]);
 
     const handleChangePage = (event: any, newPage: any) => {
         setPage(newPage);
