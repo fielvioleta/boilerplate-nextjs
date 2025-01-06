@@ -115,7 +115,8 @@ export default function Home() {
         setPage(0)
         setSize(10)
         setFilterState({
-            search: '',
+            message: '',
+            exception: '',
             from: dayjs(new Date()).subtract(3, 'day'),
             to: dayjs(new Date())
         })
