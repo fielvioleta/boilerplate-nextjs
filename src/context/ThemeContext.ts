@@ -96,5 +96,17 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    '&.table-edit-icon': {
+                        color: '#1D74A1'
+                    },
+                    '&.table-delete-icon': {
+                        color: '#D84B4B'
+                    }
+                },
+            },
+        },
     },
 })

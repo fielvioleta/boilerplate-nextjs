@@ -6,6 +6,8 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { fetchMicroServices } from "@/store/microServicesSlice";
 import { useRouter } from 'next/navigation'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Home() {
     const router = useRouter()
@@ -61,6 +63,14 @@ export default function Home() {
 
     const [filterText, setFilterText] = useState('');
 
+    const handleEdit = () => {
+        console.log('edit')
+    }
+
+    const handleDelete = () => {
+        console.log('delete')
+    }
+
     return (
         <AdminLayout>
             {data &&
@@ -88,6 +98,7 @@ export default function Home() {
                                 <StyledTableCell>Service URL</StyledTableCell>
                                 <StyledTableCell>Source URL</StyledTableCell>
                                 <StyledTableCell>Deleted</StyledTableCell>
+                                <StyledTableCell>Actions</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -108,6 +119,12 @@ export default function Home() {
                                         </Tooltip>
                                     </StyledTableCell>
                                     <StyledTableCell align={'center'}>{row.fDel ? 'True' : 'False'}</StyledTableCell>
+                                    <StyledTableCell align={'center'}>
+                                        <Box className="flex gap-1 justify-center">
+                                            <EditIcon onClick={handleEdit} className="table-edit-icon" />
+                                            <DeleteIcon onClick={handleDelete} className="table-delete-icon" />
+                                        </Box>
+                                    </StyledTableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
