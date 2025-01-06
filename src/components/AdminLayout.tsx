@@ -20,12 +20,19 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { useRouter } from 'next/router';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
-import LogoutIcon from '@mui/icons-material/Logout';
+{/* TODO: If users will be implemented */ }
+// import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+// import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
+// import LogoutIcon from '@mui/icons-material/Logout';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEnvironment, setEnvironment } from '@/store/environmentSlice';
+import SourceIcon from '@mui/icons-material/Source';
+import FenceIcon from '@mui/icons-material/Fence';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import BadgeIcon from '@mui/icons-material/Badge';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -114,20 +121,47 @@ const sideBarContent = [
         path: '/logs'
     },
     {
+        label: 'Source',
+        icon: <SourceIcon />,
+        path: '/source'
+    },
+    {
         label: 'Micro services',
         icon: <MiscellaneousServicesIcon />,
         path: '/micro-services'
     },
     {
-        label: 'Users',
-        icon: <PeopleAltIcon />,
-        path: '/users'
+        label: 'Micro services flow',
+        icon: <FenceIcon />,
+        path: '/micro-services-flow'
     },
     {
-        label: 'Roles',
-        icon: <SettingsAccessibilityIcon />,
-        path: '/user-roles'
+        label: 'Supplier source',
+        icon: <InventoryIcon />,
+        path: '/supplier-source'
     },
+    {
+        label: 'Supplier credentials',
+        icon: <BadgeIcon />,
+        path: '/supplier-credentials'
+    },
+    {
+        label: 'Supplier credit card',
+        icon: <CreditCardIcon />,
+        path: '/supplier-credit-card'
+    },
+    // TODO: If users and roles will be implemented
+    // {
+    //     label: 'Users',
+    //     icon: <PeopleAltIcon />,
+    //     path: '/users'
+    // },
+    // {
+    //     label: 'Roles',
+    //     icon: <SettingsAccessibilityIcon />,
+    //     path: '/user-roles'
+    // },
+
 ]
 
 export default function AdminLayout({ children }: any) {
@@ -160,10 +194,11 @@ export default function AdminLayout({ children }: any) {
         router.push(url);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        router.push('/');
-    }
+    {/* TODO: If users will be implemented */ }
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token');
+    //     router.push('/');
+    // }
 
     const handleChange = (event: any) => {
         dispatch(setEnvironment(event.target.value))
@@ -244,7 +279,8 @@ export default function AdminLayout({ children }: any) {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                    <ListItem disablePadding className={`sideNav !fixed !bottom-0 ${open ? '!w-60' : '!w-[65px]'}`}>
+                    {/* TODO: If users will be implemented */}
+                    {/* <ListItem disablePadding className={`sideNav !fixed !bottom-0 ${open ? '!w-60' : '!w-[65px]'}`}>
                         <ListItemButton sx={{ justifyContent: open ? 'initial' : 'center' }} onClick={handleLogout}>
                             <ListItemIcon sx={{ mr: open ? 3 : 'auto' }}>
                                 <LogoutIcon />
@@ -254,7 +290,7 @@ export default function AdminLayout({ children }: any) {
                                 sx={{ opacity: open ? 1 : 0 }}
                             />
                         </ListItemButton>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }} className={open ? 'open' : 'close'}>

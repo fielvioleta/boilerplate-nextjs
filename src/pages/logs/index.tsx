@@ -76,8 +76,9 @@ export default function Home() {
     }));
 
     const [filterState, setFilterState] = useState({
-        search: '',
-        from: dayjs(new Date()).subtract(5, 'day'),
+        message: '',
+        exception: '',
+        from: dayjs(new Date()).subtract(3, 'day'),
         to: dayjs(new Date())
     })
 
@@ -115,7 +116,7 @@ export default function Home() {
         setSize(10)
         setFilterState({
             search: '',
-            from: dayjs(new Date()).subtract(5, 'day'),
+            from: dayjs(new Date()).subtract(3, 'day'),
             to: dayjs(new Date())
         })
         fetchData()
@@ -141,11 +142,28 @@ export default function Home() {
                     <Box className="p-4 flex gap-4">
                         <TextField
                             className="flex-1"
-                            label="Filter logs"
+                            label="Filter Message"
                             variant="outlined"
                             fullWidth
-                            name="search"
-                            value={filterState.search}
+                            name="message"
+                            value={filterState.message}
+                            onChange={handleChange}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+
+                        <TextField
+                            className="flex-1"
+                            label="Filter Exception"
+                            variant="outlined"
+                            fullWidth
+                            name="exception"
+                            value={filterState.exception}
                             onChange={handleChange}
                             InputProps={{
                                 endAdornment: (
