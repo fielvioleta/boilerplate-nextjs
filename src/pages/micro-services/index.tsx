@@ -8,28 +8,39 @@ import { fetchMicroServices } from "@/store/microServicesSlice";
 import { useRouter } from 'next/navigation'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useAuth } from "@/context/AuthContext";
+import SnackbarComponent from "@/components/Snackbar";
 
 export default function Home() {
+    const { setIsLoading } = useAuth()
     const router = useRouter()
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [totalRows, setTotalRows] = useState(0);
+    const [hasFilter, setHasFilter] = useState(false);
+    const [filterState, setFilterState] = useState({
+        search: ''
+    })
+
     const dispatch = useDispatch<any>()
 
+    const fetchData = async () => {
+        setIsLoading(true);
+        try {
+            await dispatch(fetchMicroServices({ page, size })).then((res: any) => {
+                setData(res.payload.content);
+                setTotalRows(res.payload.page.totalRecords);
+            })
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+        setIsLoading(false);
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                dispatch(fetchMicroServices({ page, size })).then((res: any) => {
-                    setData(res.payload.content);
-                    setTotalRows(res.payload.page.totalRecords);
-                })
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
         fetchData();
-    }, [page, size, dispatch]);
+    }, [page, size]);
 
     const handleChangePage = (event: any, newPage: any) => {
         setPage(newPage);
@@ -71,21 +82,54 @@ export default function Home() {
         console.log('delete')
     }
 
+    const handleSearch = () => {
+        setHasFilter(true)
+        // const payload = {
+        //     ...filterState,
+        //     ...(isValidDate(filterState.from) && {
+        //         from: dayjs(filterState.from).format('YYYY-MM-DD HH:mm:ss.SSS'),
+        //     }),
+        //     ...(isValidDate(filterState.to) && {
+        //         to: dayjs(filterState.to).format('YYYY-MM-DD HH:mm:ss.SSS'),
+        //     }),
+        // };
+
+        // setData([])
+        // setTotalRows(0)
+        // fetchData(payload)
+    }
+
+    const handleReset = () => {
+
+    }
+
     return (
         <AdminLayout>
+            <SnackbarComponent></SnackbarComponent>
             {data &&
                 <TableContainer component={Paper} >
-                    <Box className="flex items-center p-4 space-between justify-between">
-                        <Box >
-                            <TextField
-                                label="Filter microservices"
-                                variant="outlined"
-                                fullWidth
-                                value={filterText}
-                                onChange={(e) => setFilterText(e.target.value)}
-                            />
-                        </Box>
-                        <Button className="h-14" variant="contained" onClick={() => router.push('/micro-services/create')}>Add micro services</Button>
+                    <Box className="p-4 flex gap-4">
+                        <TextField
+                            label="Filter microservices"
+                            variant="outlined"
+                            fullWidth
+                            value={filterText}
+                            onChange={(e) => setFilterText(e.target.value)}
+                        />
+
+                        {
+                            hasFilter &&
+                            <Button type="button" variant="contained" className="w-32" onClick={handleReset}>
+                                Reset
+                            </Button>
+                        }
+
+                        <Button type="button" variant="contained" className="w-32" onClick={handleSearch}>
+                            Search
+                        </Button>
+                        <Button className="h-14 w-52 whitespace-nowrap" variant="contained" onClick={() => router.push('/micro-services/create')}>
+                            Add microservice
+                        </Button>
                     </Box>
 
                     <Table>
@@ -121,8 +165,8 @@ export default function Home() {
                                     <StyledTableCell align={'center'}>{row.fDel ? 'True' : 'False'}</StyledTableCell>
                                     <StyledTableCell align={'center'}>
                                         <Box className="flex gap-1 justify-center">
-                                            <EditIcon onClick={handleEdit} className="table-edit-icon" />
-                                            <DeleteIcon onClick={handleDelete} className="table-delete-icon" />
+                                            <EditIcon onClick={handleEdit} className="table-edit-icon cursor-pointer" />
+                                            <DeleteIcon onClick={handleDelete} className="table-delete-icon cursor-pointer" />
                                         </Box>
                                     </StyledTableCell>
                                 </TableRow>
