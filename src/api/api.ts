@@ -26,4 +26,17 @@ API.interceptors.request.use((config) => {
     return config;
 });
 
+// Response interceptor to handle errors
+// API.interceptors.response.use(
+//     (response) => response,
+//     (error) => {
+//         if (error.response?.status === 401) {
+//             // If unauthorized, clear Redux state and redirect
+//             store.dispatch({ type: 'auth/logout' }); // Example: Dispatch a logout action
+//             Router.push('/login'); // Redirect to login page
+//         }
+//         return Promise.reject(error);
+//     }
+// );
+
 export default API

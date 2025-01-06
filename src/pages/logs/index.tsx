@@ -42,7 +42,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        fetchData();
+        fetchData({ ...filterState });
     }, [page, size]);
 
     const handleChangePage = (event: any, newPage: any) => {
@@ -77,8 +77,8 @@ export default function Home() {
 
     const [filterState, setFilterState] = useState({
         search: '',
-        from: null,
-        to: null
+        from: dayjs(new Date()).subtract(5, 'day'),
+        to: dayjs(new Date())
     })
 
     const handleChange = (event: any) => {
@@ -115,8 +115,8 @@ export default function Home() {
         setSize(10)
         setFilterState({
             search: '',
-            from: null,
-            to: null
+            from: dayjs(new Date()).subtract(5, 'day'),
+            to: dayjs(new Date())
         })
         fetchData()
     }

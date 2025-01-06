@@ -23,7 +23,7 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEnvironment, setEnvironment } from '@/store/environmentSlice';
 const drawerWidth = 240;
@@ -198,10 +198,22 @@ export default function AdminLayout({ children }: any) {
 
                         <Box className="w-40">
                             <FormControl fullWidth>
-                                <Select value={environmentState} onChange={handleChange}
-                                    sx={{ backgroundColor: 'white', color: '#485879', height: '48px', display: 'flex', alignItems: 'center', '& .MuiSvgIcon-root': { color: '#485879' } }} >
-                                    <MenuItem value={'devap'} sx={{ color: '#485879' }}>DEVAP</MenuItem>
-                                    <MenuItem value={'deveu'} sx={{ color: '#485879' }}>DEVEU</MenuItem>
+                                <Select value={environmentState}
+                                    onChange={handleChange}
+                                    sx={{
+                                        backgroundColor: 'white',
+                                        color: '#485879',
+                                        height: '40px !important',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        fontSize: 14,
+                                        '& .MuiSvgIcon-root': {
+                                            color: '#048587900'
+                                        },
+                                    }}
+                                >
+                                    <MenuItem value={'devap'} sx={{ color: '#485879', fontSize: 14 }}>DEVAP</MenuItem>
+                                    <MenuItem value={'deveu'} sx={{ color: '#485879', fontSize: 14 }}>DEVEU</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>

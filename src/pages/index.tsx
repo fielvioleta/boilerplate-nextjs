@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '@/store/usersSlice';
 import { useRouter } from 'next/router';
+import { setEnvironment } from '@/store/environmentSlice';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -109,6 +110,10 @@ export default function Login() {
         return isValid;
     };
 
+    React.useEffect(() => {
+        dispatch(setEnvironment('devap'));
+    }, [])
+
     return (
         <SignInContainer direction="column" justifyContent="space-between">
             <Card variant="outlined">
@@ -121,7 +126,10 @@ export default function Login() {
                 </Typography>
                 <Box
                     component="form"
-                    onSubmit={handleSubmit}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSubmit(e);
+                    }}
                     noValidate
                     sx={{
                         display: 'flex',
